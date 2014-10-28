@@ -1,7 +1,7 @@
 Bubble Tea Shop
 ==============
 
-This is an app to order from the nearest bubble tea shop.  The purpose of this project mainly is to see if web dev in Java could be as efficient as ruby on rails.  After all, I still favor the static typed languages than the dynamic typed languages on the server side to avoid silly typing bugs and have less turn-over time.  Also, static typed languages work better with IDE so one could gain more productivity from IDE.  When the project gets larger, dynamic typed language code base will just get harder to maintain and have trouble to scale.
+This is an app to order from the nearest bubble tea shop.  The purpose of this project mainly is to see if web dev in Java could be as efficient as ruby on rails.  After all, I still favor the static typed languages than the dynamic typed languages on the server side to avoid silly typing bugs and have less turn-around time.  Also, static typed languages work better with IDE so one could gain more productivity from IDE.  When the project gets larger, dynamic typed language code base will just get harder to maintain and have trouble to scale.
 
 Technologies used:
 
