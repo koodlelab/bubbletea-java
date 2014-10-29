@@ -16,7 +16,6 @@ app.controller('BubbleTeaController', function($scope, BubbleTeaOrder) {
   $scope.sizes = ['small', 'medium', 'large'];
 
   $scope.orderBubbleTea = function() {
-    console.log("order...")
     BubbleTeaOrder.save({id: 1}, $scope.drink);
   }
 });

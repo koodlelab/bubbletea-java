@@ -1,5 +1,6 @@
 package com.koodlelab.bubbletea;
 
+import com.mongodb.MongoClient;
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.assets.AssetsBundle;
 import com.yammer.dropwizard.config.Bootstrap;
@@ -19,6 +20,7 @@ public class BubbleTeaShopService extends Service<BubbleTeaShopConfiguration> {
 
     @Override
     public void run(BubbleTeaShopConfiguration configuration, Environment environment) throws Exception {
-        environment.addResource(new BubbleTeaShopResource());
+        MongoClient mongoClient = new MongoClient();
+        environment.addResource(new BubbleTeaShopResource(mongoClient));
     }
 }
