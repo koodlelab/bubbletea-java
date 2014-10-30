@@ -21,6 +21,7 @@ public class BubbleTeaShopService extends Service<BubbleTeaShopConfiguration> {
     @Override
     public void run(BubbleTeaShopConfiguration configuration, Environment environment) throws Exception {
         MongoClient mongoClient = new MongoClient();
+        environment.manage(new MongoClientManager(mongoClient));
         environment.addResource(new BubbleTeaShopResource(mongoClient));
     }
 }
