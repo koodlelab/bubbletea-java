@@ -12,9 +12,6 @@
     {{message.msg}}
   </alert>
 
-  <!--<alert ng-repeat="message in messages" type="message.type" close="closeAlert($index)">-->
-    <!--{{message.msg}}-->
-  <!--</alert>-->
   <form ng-submit="orderBubbleTea()">
     <div class="form-group">
       <select ng-model="drink.drinkType" ng-options="type.name for type in types | orderBy:'name'"
