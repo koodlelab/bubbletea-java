@@ -1,12 +1,34 @@
 var app = angular.module('bubbletea', ['ngResource', 'ui.bootstrap']);
 
-app.factory('BubbleTeaOrder', function($resource) {
-  return $resource('/service/BubbleTeaShop/:id/order/',
-    {id: '@bubbleteaShopId'}, {}
-  );
+app.service('LocalBubbleTeaShop', function() {
+  var localBubbleTeaShop;
+
+  this.setShop = function(shop) {
+    localBubbleTeaShop = shop;
+  };
+
+  this.getShop = function() {
+    return localBubbleTeaShop;
+  }
+});s
+
+app.controller('BubbleTeaShopController', function($scope, $window, $resource, LocalBubbleTeaShop) {
+  var bubbleTeaShopLocator = $resource('/service/BubbleTeaShop/nearest/:latitude/:longitude',
+    {latitude: '@latitude', longitude: '@longitude'}, {});
+    window.navigator.geolocation.getCurrentPosition(function (position) {
+      bubbleTeaShopLocator.get({latitude: position.coords.latitude, longitude: position.coords.longitude},
+        function (value) {
+          $scope.nearestBubbleTeaShop = value;
+          LocalBubbleTeaShop.setShop(value);
+          $scope.googleMapLink = "https://maps.google.com/maps/place/"+$scope.nearestBubbleTeaShop.location.coordinates[1]+","
+            +$scope.nearestBubbleTeaShop.location.coordinates[0]
+          console.log("link:"+$scope.googleMapLink);
+          console.log("location:"+$scope.nearestBubbleTeaShop.location.coordinates[1]+' '+$scope.nearestBubbleTeaShop.location.coordinates[0]);
+        });
+    });
 });
 
-app.controller('BubbleTeaController', function($scope, BubbleTeaOrder) {
+app.controller('BubbleTeaController', function($scope, $resource, LocalBubbleTeaShop) {
   $scope.types = [
     {name: "Honey", family:"Original"},
     {name: "Green Apple", family:"Original"},
@@ -18,8 +40,10 @@ app.controller('BubbleTeaController', function($scope, BubbleTeaOrder) {
   $scope.messages = [];
 
   $scope.orderBubbleTea = function() {
-    BubbleTeaOrder.save({id: 1}, $scope.drink, function(order) {
-      $scope.messages.push({type: 'success', msg: 'Order sent! Order id:'+order.id})
+    $scope.drink.shopId = LocalBubbleTeaShop.getShop().openStreetMapId;
+    var order = $resource('/service/BubbleTeaShop/order/');
+    order.save($scope.drink, function(acceptedOrder) {
+      $scope.messages.push({type: 'success', msg: 'Order sent! Order id:'+acceptedOrder.id});
     });
   }
 

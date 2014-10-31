@@ -7,6 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
+<div ng-controller="BubbleTeaShopController" class="container">
+  <div class="panel panel-default" ng-show="nearestBubbleTeaShop">
+    <div class="panel-boby">
+      Your bubble tea will be ready for pick up at: <strong>{{nearestBubbleTeaShop.name}}</strong>
+      <a ng-href={{googleMapLink}}>[map]</a>
+    </div>
+  </div>
+</div>
+
 <div ng-controller="BubbleTeaController" class="container">
   <alert ng-repeat="message in messages" type="message.type" close="closeAlert($index)">
     {{message.msg}}
